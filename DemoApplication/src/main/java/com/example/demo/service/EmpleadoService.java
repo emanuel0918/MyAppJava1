@@ -16,17 +16,20 @@ import java.util.List;
 
 public class EmpleadoService {
 
-    public void create (String stringID, String nombre) {
+    public String create (String stringID, String nombre) {
         int id;
         try {
             id = Integer.parseInt(stringID);
         } catch (NumberFormatException | NullPointerException nfe) {
             nfe.printStackTrace();
+            return "Error en el Id";
         }
 
         //
         if (!"".equals(nombre)) {
-            return EmpleadoDAO.create(new Empleado(id, nombre));
+            EmpleadoDAO.create(new Empleado(id, nombre));
+            return "Empleado creado";
         }
+        return "Error en el nombre";
     }
 }

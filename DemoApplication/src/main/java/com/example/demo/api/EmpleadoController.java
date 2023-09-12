@@ -5,29 +5,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/api")
 public class EmpleadoController {
 
-    // This is just a simple service for demonstration purposes.
-    // You would replace it with your actual service or data access logic.
+    @Autowired
     private final EmpleadoService myService;
 
-    @Autowired
-    public EmpleadoController(EmpleadoService myService) {
-        this.myService = myService;
-    }
 
     @PostMapping("/create")
     @ResponseBody
-    public String createResource(@RequestBody RequestBodyObject requestBodyObject) {
-        // Assuming RequestBodyObject is a class representing the request body.
-        // Perform your create operation here, e.g., save the object to a database.
+    public String createResource(
+            @RequestParam("id") String id,
+            @RequestParam("name") String name) {
         
-        myService.create(requestBodyObject);
-
-        // Return a response (you can customize the response structure)
-        return "Resource created successfully";
+        // StringID
+        return myService.create(id, name);
+        
     }
 }
