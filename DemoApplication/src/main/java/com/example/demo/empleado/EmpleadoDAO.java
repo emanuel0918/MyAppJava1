@@ -20,11 +20,11 @@ import java.util.List;
  *
  * @author Emanuel
  */
-public class EmpleadoDAO {
+public static class EmpleadoDAO {
     
     final static String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv" ;
     
-    public void create (Empleado empleado) {
+    public static void create (Empleado empleado) {
         try (FileWriter writer = new FileWriter(csvFilePath, true);
              BufferedWriter buffer = new BufferedWriter(writer)) {
             buffer.newLine();
@@ -37,7 +37,7 @@ public class EmpleadoDAO {
         
     }
     
-    public Empleado get (int id) {
+    public static Empleado get (int id) {
         List<Empleado> empleados = getAll();
         for (Empleado e : empleados) {
             if (e.getId() == id) {
@@ -47,7 +47,7 @@ public class EmpleadoDAO {
         return null;
     }
     
-    public List<Empleado> getAll () {
+    public static List<Empleado> getAll () {
         List<Empleado> empleados = new ArrayList<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
@@ -69,8 +69,8 @@ public class EmpleadoDAO {
         return empleados;
     }
     
-    // Delete an Escuela by its unique index idCarrera
-    public void deleteEscuela(int id) {
+    // Delete an Empleado by its unique index idCarrera
+    public static void deleteEscuela(int id) {
         List<Empleado> empleados = getAll();
         Empleado empleado = null;
 
@@ -100,7 +100,7 @@ public class EmpleadoDAO {
     }
 
     // Backup the original CSV file by copying it to a backup file
-    private void backupCsvFile() {
+    private static void backupCsvFile() {
         try {
             String backupFilePath = csvFilePath + ".backup";
             Files.copy(Paths.get(csvFilePath), Paths.get(backupFilePath), StandardCopyOption.REPLACE_EXISTING);
@@ -110,7 +110,7 @@ public class EmpleadoDAO {
     }
 
     // Clear the contents of the CSV file
-    private void clearCsvFile() {
+    private static void clearCsvFile() {
         try (FileWriter writer = new FileWriter(csvFilePath, false)) {
             // Simply open and close the file to clear its contents
         } catch (IOException e) {
