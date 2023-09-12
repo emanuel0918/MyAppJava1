@@ -38,7 +38,7 @@ public static class EmpleadoDAO {
     }
     
     public static Empleado get (int id) {
-        List<Empleado> empleados = getAll();
+        List<Empleado> empleados = EmpleadoDAO.getAll();
         for (Empleado e : empleados) {
             if (e.getId() == id) {
                 return e;
@@ -71,7 +71,7 @@ public static class EmpleadoDAO {
     
     // Delete an Empleado by its unique index idCarrera
     public static void deleteEscuela(int id) {
-        List<Empleado> empleados = getAll();
+        List<Empleado> empleados = EmpleadoDAO.getAll();
         Empleado empleado = null;
 
         // Find the Escuela with the specified idCarrera
@@ -87,14 +87,14 @@ public static class EmpleadoDAO {
             empleados.remove(empleado);
 
             // Backup the original CSV file
-            backupCsvFile();
+            EmpleadoDAO.backupCsvFile();
 
             // Clear the contents of the CSV file
-            clearCsvFile();
+            EmpleadoDAO.clearCsvFile();
 
             // Write the updated list of Escuelas back to the CSV file
             for (Empleado e2 : empleados) {
-                create(e2);
+                EmpleadoDAO.create(e2);
             }
         }
     }
