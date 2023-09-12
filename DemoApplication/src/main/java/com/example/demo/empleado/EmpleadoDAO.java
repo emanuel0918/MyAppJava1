@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Emanuel
  */
-public static class EmpleadoDAO {
+public class EmpleadoDAO {
     
     final static String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv" ;
     

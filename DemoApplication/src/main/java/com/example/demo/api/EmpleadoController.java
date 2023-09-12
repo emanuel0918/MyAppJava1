@@ -1,4 +1,6 @@
 package com.example.demo.api;
+import com.example.demo.empleado.Empleado;
+import com.example.demo.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class EmpleadoController {
 
     @Autowired
-    private final EmpleadoService myService;
+    private EmpleadoService myService;
 
 
     @PostMapping("/create")
