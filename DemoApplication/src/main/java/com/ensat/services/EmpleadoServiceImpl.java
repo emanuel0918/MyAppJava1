@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Empleado service implement.
@@ -17,7 +18,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Autowired
     private EmpleadoRepository empleadoRepository;
     @Override
-    public Empleado create(String nombre) {
+    public Optional create(String nombre) {
         Empleado e = new Empleado();
         if (!"".equals(nombre)) {
             e.setNombre(nombre);
@@ -29,9 +30,9 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     }
 
     @Override
-    public Empleado get(Empleado e) {
+    public Optional get(Empleado e) {
         int id = e.getId();
-        return empleadoRepository.getById(id);
+        return empleadoRepository.findById(id);
     }
 
     @Override
@@ -43,11 +44,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     }
 
     @Override
-    public Empleado update(Empleado e) {
+    public Optional update(Empleado e) {
         if (!"".equals(e.getNombre())) {
             e.setNombre(e.getNombre());
             e.setFechaModificacion(System.currentTimeMillis());
-
+            e.setFechaCreacion(e.getFechaCreacion());
         }
         empleadoRepository.save(e);
         return get(e);
@@ -57,6 +58,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public void delete(Empleado e) {
         empleadoRepository.delete(e);
     }
+
 
 
 }

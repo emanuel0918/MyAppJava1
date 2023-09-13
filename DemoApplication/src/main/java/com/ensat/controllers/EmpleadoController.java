@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -26,7 +27,7 @@ public class EmpleadoController {
      * @return
      */
     @RequestMapping("empleado/create")
-    public Empleado nuevoEmpleado(@RequestParam("nombre") String nombre) {
+    public Optional nuevoEmpleado(@RequestParam("nombre") String nombre) {
         return empleadoService.create(nombre);
     }
 
@@ -45,11 +46,10 @@ public class EmpleadoController {
      * View a specific empleado by its id.
      *
      * @param id
-     * @param model
      * @return
      */
     @GetMapping("empleado/{id}")
-    public Empleado getEmpleado(@PathVariable Integer id, Model model) {
+    public Object getEmpleado(@PathVariable Integer id) {
         Empleado empleado = new Empleado();
         empleado.setId(id);
         return empleadoService.get(empleado);
@@ -59,13 +59,13 @@ public class EmpleadoController {
     public Object edit(@PathVariable Integer id, @RequestParam("nombre") String nombre) {
         Empleado empleado = new Empleado();
         empleado.setId(id);
-        if (empleadoService.get(empleado) == null) {
+        if (!empleadoService.get(empleado).isPresent()) {
             return "Empleado no encontrado";
         }
 
         //
         empleado.setNombre(nombre);
-        return  empleadoService.update(empleado).toString();
+        return  empleadoService.update(empleado);
     }
 
 
@@ -76,11 +76,11 @@ public class EmpleadoController {
      * @param id
      * @return
      */
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("empleado/delete/{id}")
     public String delete(@PathVariable Integer id ) {
         Empleado empleado = new Empleado();
         empleado.setId(id);
-        if (empleadoService.get(empleado) == null) {
+        if (!empleadoService.get(empleado).isPresent()) {
             return "Empleado no encontrado";
         }
         empleadoService.delete(empleado);
