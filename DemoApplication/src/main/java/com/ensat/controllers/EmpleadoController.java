@@ -52,6 +52,9 @@ public class EmpleadoController {
     public Object getEmpleado(@PathVariable Integer id) {
         Empleado empleado = new Empleado();
         empleado.setId(id);
+        if (!empleadoService.get(empleado).isPresent()) {
+            return "Empleado no encontrado";
+        }
         return empleadoService.get(empleado);
     }
 
