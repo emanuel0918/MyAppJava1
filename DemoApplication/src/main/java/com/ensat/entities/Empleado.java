@@ -3,8 +3,7 @@ package com.ensat.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Empleado entity.

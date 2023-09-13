@@ -12,4 +12,9 @@ public interface EmpleadoService {
 
     public List<Empleado> getAll();
 
+    public Empleado update(Empleado e);
+
+    public void delete (Empleado e);
+
+
 }

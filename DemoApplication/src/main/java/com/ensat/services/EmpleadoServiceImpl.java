@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +22,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         if (!"".equals(nombre)) {
             e.setNombre(nombre);
             e.setFechaCreacion(System.currentTimeMillis());
-            e.setFechaModificacion(e.getFechaCreacion());
+            e.setFechaModificacion(System.currentTimeMillis());
             empleadoRepository.save(e);
         }
         return get(e);
@@ -44,6 +40,22 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 Sort.by(Sort.Direction.DESC, "fechaModificacion")
         );
         return list;
+    }
+
+    @Override
+    public Empleado update(Empleado e) {
+        if (!"".equals(e.getNombre())) {
+            e.setNombre(e.getNombre());
+            e.setFechaModificacion(System.currentTimeMillis());
+
+        }
+        empleadoRepository.save(e);
+        return get(e);
+    }
+
+    @Override
+    public void delete(Empleado e) {
+        empleadoRepository.delete(e);
     }
 
 

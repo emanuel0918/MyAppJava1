@@ -26,7 +26,7 @@ public class EmpleadoController {
      * @return
      */
     @RequestMapping("empleado/create")
-    public Empleado newProduct(@RequestParam("nombre") String nombre) {
+    public Empleado nuevoEmpleado(@RequestParam("nombre") String nombre) {
         return empleadoService.create(nombre);
     }
 
@@ -36,7 +36,7 @@ public class EmpleadoController {
      * @param model
      * @return
      */
-    @GetMapping("/")
+    @GetMapping("empleado/list")
     public List<Empleado> list(Model model) {
         return empleadoService.getAll();
     }
@@ -48,12 +48,43 @@ public class EmpleadoController {
      * @param model
      * @return
      */
-    @GetMapping("/{id}")
-    public String showProduct(@PathVariable Integer id, Model model) {
+    @GetMapping("empleado/{id}")
+    public Empleado getEmpleado(@PathVariable Integer id, Model model) {
         Empleado empleado = new Empleado();
         empleado.setId(id);
-        model.addAttribute("product", empleadoService.get(empleado));
-        return "productshow";
+        return empleadoService.get(empleado);
+    }
+
+    @PutMapping("/empleado/edit/{id}")
+    public Object edit(@PathVariable Integer id, @RequestParam("nombre") String nombre) {
+        Empleado empleado = new Empleado();
+        empleado.setId(id);
+        if (empleadoService.get(empleado) == null) {
+            return "Empleado no encontrado";
+        }
+
+        //
+        empleado.setNombre(nombre);
+        return  empleadoService.update(empleado).toString();
+    }
+
+
+
+    /**
+     * Delete product by its id.
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable Integer id ) {
+        Empleado empleado = new Empleado();
+        empleado.setId(id);
+        if (empleadoService.get(empleado) == null) {
+            return "Empleado no encontrado";
+        }
+        empleadoService.delete(empleado);
+        return "Empleado eliminado";
     }
 
 }
