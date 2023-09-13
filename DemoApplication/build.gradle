@@ -19,6 +19,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation('com.google.code.gson:gson:2.3.1')
+	// MySQL JDBC driver
+	implementation 'mysql:mysql-connector-java:8.0.28'
     implementation('com.googlecode.json-simple:json-simple:1.1.1')
             { exclude group: 'org.hamcrest', module: 'hamcrest-core' }
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
