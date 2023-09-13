@@ -48,7 +48,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         if (!"".equals(e.getNombre())) {
             e.setNombre(e.getNombre());
             e.setFechaModificacion(System.currentTimeMillis());
-            e.setFechaCreacion(e.getFechaCreacion());
         }
         empleadoRepository.save(e);
         return get(e);
