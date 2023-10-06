@@ -23,14 +23,16 @@ public class EmpleadoDAO {
 
     private final String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv";
 
-    public Empleado create(Empleado empleado) throws Exception {
-        FileWriter writer = new FileWriter(this.csvFilePath, true);
-        BufferedWriter buffer = new BufferedWriter(writer);
-        buffer.newLine();
-        buffer.write(empleado.toCsvString());
-        //
-        //buffer.newLine();
-        return get(empleado.getUuid());
+    public void create(Empleado empleado) throws Exception {
+        try (FileWriter writer = new FileWriter(csvFilePath, true);
+             BufferedWriter buffer = new BufferedWriter(writer)) {
+            buffer.newLine();
+            buffer.write(empleado.toCsvString());
+            //
+            //buffer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Empleado get(String uuid) throws Exception {
