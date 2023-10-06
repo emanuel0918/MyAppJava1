@@ -17,66 +17,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Emanuel
  */
-public static class EmpleadoDAO {
-    
-    final static String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv" ;
-    
-    public static void create (Empleado empleado) {
-        try (FileWriter writer = new FileWriter(csvFilePath, true);
-             BufferedWriter buffer = new BufferedWriter(writer)) {
-            buffer.newLine();
-            buffer.write(empleado.toCsvString());
-            //
-            //buffer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+public class EmpleadoDAO {
+
+    final static String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv";
+
+    public Empleado create(Empleado empleado) throws Exception {
+        FileWriter writer = new FileWriter(csvFilePath, true);
+        BufferedWriter buffer = new BufferedWriter(writer);
+        buffer.newLine();
+        buffer.write(empleado.toCsvString());
+        //
+        //buffer.newLine();
+        return get(empleado.getUuid());
     }
-    
-    public static Empleado get (int id) {
-        List<Empleado> empleados = EmpleadoDAO.getAll();
+
+    public Empleado get(String uuid) throws Exception {
+        List<Empleado> empleados = getAll();
         for (Empleado e : empleados) {
-            if (e.getId() == id) {
+            if (uuid.equals(e.getUuid())) {
                 return e;
             }
         }
-        return null;
+        throw new Exception();
     }
-    
-    public static List<Empleado> getAll () {
+
+    public List<Empleado> getAll() throws Exception {
         List<Empleado> empleados = new ArrayList<>();
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    int id = Integer.parseInt(parts[0]);
-                    String nombre = parts[1];
-                    Empleado empleado  = new Empleado(
-                            id, nombre
-                    );
-                    empleados.add(empleado);
-                }
+
+        BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length == 2) {
+                String uuid = parts[0];
+                String nombre = parts[1];
+                Empleado empleado = new Empleado(
+                        nombre
+                );
+                empleados.add(empleado);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return empleados;
     }
-    
+
     // Delete an Empleado by its unique index idCarrera
-    public static void deleteEscuela(int id) {
-        List<Empleado> empleados = EmpleadoDAO.getAll();
+    public void delete(String uuid) throws Exception {
+        List<Empleado> empleados = getAll();
         Empleado empleado = null;
 
         // Find the Escuela with the specified idCarrera
         for (Empleado e1 : empleados) {
-            if (e1.getId() == id) {
+            if (uuid.equals(e1.getUuid())) {
                 empleado = e1;
                 break;
             }
@@ -94,7 +87,7 @@ public static class EmpleadoDAO {
 
             // Write the updated list of Escuelas back to the CSV file
             for (Empleado e2 : empleados) {
-                EmpleadoDAO.create(e2);
+                create(e2);
             }
         }
     }
@@ -117,5 +110,5 @@ public static class EmpleadoDAO {
             e.printStackTrace();
         }
     }
-    
+
 }
