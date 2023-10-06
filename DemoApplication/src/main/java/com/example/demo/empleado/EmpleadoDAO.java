@@ -103,8 +103,8 @@ public class EmpleadoDAO {
     }
 
     // Clear the contents of the CSV file
-    private static void clearCsvFile() {
-        try (FileWriter writer = new FileWriter(csvFilePath, false)) {
+    private void clearCsvFile() {
+        try (FileWriter writer = new FileWriter(this.csvFilePath, false)) {
             // Simply open and close the file to clear its contents
         } catch (IOException e) {
             e.printStackTrace();
