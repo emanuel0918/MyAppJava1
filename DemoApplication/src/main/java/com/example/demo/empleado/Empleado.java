@@ -10,7 +10,7 @@ package com.example.demo.empleado;
  * @author Emanuel
  */
 public class Empleado {
-    private int id;
+    private String uuid;
     private String nombre;
     
     public Empleado() {}
@@ -19,27 +19,31 @@ public class Empleado {
     
     //public Empleado ()
 
-    public Empleado(int id, String nombre) {
-        this.id = id;
+    public Empleado (String nombre) {
+        this.uuid = java.util.UUID.randomUUID().toString();
+        this.nombre = nombre;
+    }
+    public Empleado(String uuid, String nombre) {
+        this.uuid = uuid;
         this.nombre = nombre;
     }
 
     // BD
     public String toCsvString () {
-        return id + "," + nombre ;
+        return uuid + "," + nombre ;
     }
     
     @Override
     public String toString() {
-        return "Empleado{" + "id=" + id + ", nombre=" + nombre + '}';
+        return  uuid + ", " + nombre ;
     }
 
-    public int getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getNombre() {
