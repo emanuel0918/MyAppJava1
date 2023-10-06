@@ -21,10 +21,10 @@ import java.util.List;
  */
 public class EmpleadoDAO {
 
-    final static String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv";
+    private final String csvFilePath = "C:\\Users\\Emanuel\\MyAppJava1\\DemoApplication\\empleado.csv";
 
     public Empleado create(Empleado empleado) throws Exception {
-        FileWriter writer = new FileWriter(csvFilePath, true);
+        FileWriter writer = new FileWriter(this.csvFilePath, true);
         BufferedWriter buffer = new BufferedWriter(writer);
         buffer.newLine();
         buffer.write(empleado.toCsvString());
@@ -46,7 +46,7 @@ public class EmpleadoDAO {
     public List<Empleado> getAll() throws Exception {
         List<Empleado> empleados = new ArrayList<>();
 
-        BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
+        BufferedReader reader = new BufferedReader(new FileReader(this.csvFilePath));
         String line;
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(",");
@@ -80,7 +80,7 @@ public class EmpleadoDAO {
             empleados.remove(empleado);
 
             // Backup the original CSV file
-            EmpleadoDAO.backupCsvFile();
+            backupCsvFile();
 
             // Clear the contents of the CSV file
             EmpleadoDAO.clearCsvFile();
@@ -93,10 +93,10 @@ public class EmpleadoDAO {
     }
 
     // Backup the original CSV file by copying it to a backup file
-    private static void backupCsvFile() {
+    private void backupCsvFile() {
         try {
-            String backupFilePath = csvFilePath + ".backup";
-            Files.copy(Paths.get(csvFilePath), Paths.get(backupFilePath), StandardCopyOption.REPLACE_EXISTING);
+            String backupFilePath = this.csvFilePath + ".backup";
+            Files.copy(Paths.get(this.csvFilePath), Paths.get(backupFilePath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
