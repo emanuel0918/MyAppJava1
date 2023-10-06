@@ -83,7 +83,7 @@ public class EmpleadoDAO {
             backupCsvFile();
 
             // Clear the contents of the CSV file
-            EmpleadoDAO.clearCsvFile();
+            clearCsvFile();
 
             // Write the updated list of Escuelas back to the CSV file
             for (Empleado e2 : empleados) {
