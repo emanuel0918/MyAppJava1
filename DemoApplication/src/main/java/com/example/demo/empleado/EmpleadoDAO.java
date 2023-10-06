@@ -55,9 +55,9 @@ public class EmpleadoDAO {
             if (parts.length == 2) {
                 String uuid = parts[0];
                 String nombre = parts[1];
-                Empleado empleado = new Empleado(
-                        nombre
-                );
+                Empleado empleado = new Empleado();
+                empleado.setUuid(uuid);
+                empleado.setNombre(nombre);
                 empleados.add(empleado);
             }
         }
